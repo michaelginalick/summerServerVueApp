@@ -26,7 +26,7 @@ function buildOptions(options = {}) {
   const requestOptions = {
     method: options.method || "GET",
     headers: {
-      "Accept": "applicatin/json"
+      "Accept": "application/json"
     }
   }
 

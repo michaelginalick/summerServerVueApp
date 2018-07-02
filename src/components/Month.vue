@@ -27,14 +27,13 @@
         </tr>
       </thead>
       <tbody>
-        <template v-for="weeks in month" >
+        <template v-for="weeks in month">
           <tr class="textAlignRight">
             <template v-for="day in weeks">
               <td v-if="day.dayNumber === 0">
               </td>
               <td v-else-if="day.dayNumber > 0" 
-                v-bind:class="{ activeDay: day.activeDay 
-                }"
+                v-bind:class="{ activeDay: day.activeDay }"
               >
                 {{day.dayNumber}}
               </td>
