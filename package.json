@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "name": "summer-calendar",
+  "productName": "summer-calendar",
+  "description": "My neat Vue project",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "poi",
+    "build": "poi build",
+    "report": "poi build --bundle-report",
+    "serve": "serve dist --single"
+  },
+  "author": {
+    "name": "Michael Ginalick",
+    "email": "michaelginalick@Michaels-MacBook-Pro.local"
+  },
+  "dependencies": {
+    "moment": "^2.22.2",
+    "normalize.css": "^7.0.0",
+    "object-assign": "^4.1.1",
+    "promise-polyfill": "^6.0.2",
+    "semantic-ui-css": "^2.3.2",
+    "vue-momentjs": "^0.1.2"
+  },
+  "devDependencies": {
+    "poi": "^9.0.0",
+    "poi-preset-bundle-report": "^2.0.0",
+    "serve": "^6.1.0"
+  }
+}
