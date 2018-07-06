@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { apiGet } from "../api_base/api_request";
+  import { apiGet } from "../apiBase/apiRequest";
   import Month from "./Month.vue";
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
