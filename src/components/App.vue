@@ -138,7 +138,7 @@ export default {
               dayNumber: innerCounter++
             });
           } else {
-            week.push({ dayNumber: nextMonthDayCounter++ });
+            week.push({ dayNumber: nextMonthDayCounter++, nextMonth: true });
           }
         }
         month[i] = week;

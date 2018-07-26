@@ -1,31 +1,7 @@
 <template>
   <div id="month">
     <table class="ui celled table">
-      <thead class="centered">
-        <tr class="textAlignCentered">
-          <th>
-            Sunday
-          </th>
-          <th>
-            Monday
-          </th>
-          <th>
-            Tuesday
-          </th>
-          <th>
-            Wednesday
-          </th>
-          <th>
-            Thursday
-          </th>
-          <th>
-            Friday
-          </th>
-          <th>
-            Saturday
-          </th>
-        </tr>
-      </thead>
+      <tableHead />
       <tbody>
         <template v-for="weeks in month" >
           <tr class="textAlignRight" v-bind:key="weeks.id">
@@ -33,7 +9,7 @@
               <td v-if="day.dayNumber === 0" v-bind:key="day.id">
               </td>
               <td v-else-if="day.dayNumber > 0 && day.dayNumber != 100" 
-                v-bind:class="{ activeDay: day.activeDay }"
+                v-bind:class="[{ activeDay: day.activeDay, nextMonth: day.nextMonth }]"
                 v-bind:key="day.id"
               >
                 {{day.dayNumber}}
@@ -47,8 +23,15 @@
 </template>
 
 <script>
+
+import TableHead from "./TableHead.vue";
+
 export default {
   name: "month",
+
+   components: {
+    tableHead: TableHead,
+  },
 
   data() {
     return {};
@@ -103,9 +86,10 @@ export default {
   text-align: right;
 }
 
-.textAlignCentered {
-  text-align: center;
+.nextMonth {
+  color:firebrick;
 }
+
 
 .activeDay {
   display: inline-flex;
