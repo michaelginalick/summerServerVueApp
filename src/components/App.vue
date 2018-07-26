@@ -3,14 +3,18 @@
     
     <div class="ui huge header">
       <span> 
-        <arrow :cssClass="leftArrow" 
+        <arrow 
+          :cssClass="leftArrow" 
           :method="getPreviousMonth"
           @previousMonth="getPreviousMonth"
         /> 
       </span>
         {{ this.month().monthName }}
+        -
+        {{ this.year() }}
       <span> 
-        <arrow :cssClass="rightArrow" 
+        <arrow 
+          :cssClass="rightArrow" 
           :method="getNextMonth"
           @nextMonth="getNextMonth"
         /> 
@@ -27,142 +31,186 @@
 </template>
 
 <script>
-  import { apiGet } from "../apiBase/apiRequest";
-  import Month from "./Month.vue";
-  import Arrow from "./Arrow.vue";
+import { apiGet } from "../apiBase/apiRequest";
+import Month from "./Month.vue";
+import Arrow from "./Arrow.vue";
 
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+const dayNames = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
 
-  export default {
-    name: 'app',
+export default {
+  name: "app",
 
-    components: {
-      "month": Month,
-      "arrow": Arrow
-    },
+  components: {
+    month: Month,
+    arrow: Arrow
+  },
 
-    data() {
-      return {
-        eventsInMonth: [],
-        currentMonth: () => {
-          let date = new Date()
-          return date.getMonth()
-        },
-        counter: 0,
-        leftArrow: "angle double left icon",
-        rightArrow: "angle double right icon"
-      }
-    },
+  data() {
+    return {
+      eventsInMonth: [],
+      counter: 0,
+      leftArrow: "angle double left icon",
+      rightArrow: "angle double right icon",
 
-    computed: {
-      daysInCurrentMonth() {
-        var now = new Date();
-        let calculateMonth = this.currentMonth.call()+1+this.counter
-
-        return new Date(now.getFullYear(), calculateMonth, 0).getDate();
-      },
-
-      firstDayInMonth() {
+      currentMonth: () => {
         let date = new Date();
-        let firstDay = new Date(date.getFullYear(), this.currentMonth.call()+this.counter, 1);
-        
-        return { name: dayNames[firstDay.getDay()], number: firstDay.getDay() }
+        return date.getMonth();
       },
-            
-      daysArray() {
-        let daysInMonth = []
-
-        for(let i = 0; i < this.daysInCurrentMonth; i++) {
-          daysInMonth.push(1)
-        }
-        return daysInMonth
-      },
-
-      buildMonth() {
-        let month = new Array();
-        let innerCounter = 1
-        let nextMonthCounter = 1
-        let dayCounter = 1
-        let monthStarted = false
-        let monthStart = this.firstDayInMonth.number
-
-        for(let i = 0; i < 6; i++) {
-          let week = []
-          for(let j=0; j < 7; j++) {
-            
-            if (j < monthStart && monthStarted == false) {
-              week.push( { dayName: null, dayNumber: 0} )
-              continue
-            } else {
-              monthStarted = true
-            }
-
-            if(innerCounter <= this.daysArray.length) {
-              week.push( { dayName: dayNames[j], activeDay: this.isToday(innerCounter), dayNumber: innerCounter++ } )
-            } else {
-              week.push({ dayNumber: nextMonthCounter++ })
-            }
-          }
-          month[i] = week;
-        }
-        return month
-      } 
-    },
-
-    created() {
-      // try {
-      //   const data =  apiGet(`eventsByMonth/${this.getEventsByCurrentMonth()}`)
-      //   data.then((res) => {
-      //     this.eventsInMonth = res
-      //   })
-      // } catch(err) {
-      //   console.log(err)
-      // }
-
-    },
-
-
-    methods: {
-
-      month() {
-        let pointer = (this.currentMonth.call()+this.counter)%monthNames.length
-
-        if(pointer < 0) {
-          pointer = 11
-        }
-
-        return { monthName: monthNames[pointer], monthNumber: pointer+1 }
-      },
-
-      getEventsByCurrentMonth() {
-        return monthNames[this.currentMonth.call()]
-      },
-
-      getNextMonth() {
-        this.counter++
-
-        this.month()
-      },
-
-      getPreviousMonth() {
-        this.counter--
-
-        this.month()
-      },
-
-      isToday(innerCounter) {
-        let today = new Date()
-        let isCurrentMonth = today.getMonth()+1 === this.month().monthNumber
-
-        if (today.getDay()+1 === innerCounter && isCurrentMonth) {
-          return true
-        }
-        return false
+      currentYear: () => {
+        let date = new Date();
+        return date.getFullYear();
       }
+    };
+  },
+
+  computed: {
+    daysInCurrentMonth() {
+      var now = new Date();
+      let calculateMonth = this.currentMonth.call() + 1 + this.counter;
+
+      return new Date(now.getFullYear(), calculateMonth, 0).getDate();
+    },
+
+    firstDayInMonth() {
+      let date = new Date();
+      let firstDay = new Date(
+        date.getFullYear(),
+        this.currentMonth.call() + this.counter,
+        1
+      );
+
+      return { name: dayNames[firstDay.getDay()], number: firstDay.getDay() };
+    },
+
+    daysArray() {
+      let daysInMonth = [];
+
+      for (let i = 0; i < this.daysInCurrentMonth; i++) {
+        daysInMonth.push(1);
+      }
+      return daysInMonth;
+    },
+
+    buildMonth() {
+      let month = new Array();
+      let innerCounter = 1;
+      let nextMonthDayCounter = 1;
+      let dayCounter = 1;
+      let monthStarted = false;
+      let monthStart = this.firstDayInMonth.number;
+
+      for (let i = 0; i < 6; i++) {
+        let week = [];
+        for (let j = 0; j < 7; j++) {
+          if (j < monthStart && monthStarted == false) {
+            week.push({ dayName: null, dayNumber: 0 });
+            continue;
+          } else {
+            monthStarted = true;
+          }
+
+          if (innerCounter <= this.daysArray.length) {
+            week.push({
+              dayName: dayNames[j],
+              activeDay: this.isToday(innerCounter),
+              dayNumber: innerCounter++
+            });
+          } else {
+            week.push({ dayNumber: nextMonthDayCounter++ });
+          }
+        }
+        month[i] = week;
+      }
+      return month;
+    }
+  },
+
+  created() {
+    // try {
+    //   const data =  apiGet(`eventsByMonth/${this.getEventsByCurrentMonth()}`)
+    //   data.then((res) => {
+    //     this.eventsInMonth = res
+    //   })
+    // } catch(err) {
+    //   console.log(err)
+    // }
+  },
+
+  methods: {
+    currentPointer() {
+      return this.currentMonth.call() + this.counter;
+    },
+
+    year() {
+      let pointer = this.currentPointer();
+
+      if (pointer % 12 === 0) {
+        let incrementYear = this.currentYear.call();
+        return (incrementYear += 1);
+      }
+
+      return this.currentYear.call();
+    },
+
+    month() {
+      let pointer = this.currentPointer() % monthNames.length;
+
+      if (pointer < 0) {
+        pointer = 11;
+      }
+
+      return { monthName: monthNames[pointer], monthNumber: pointer + 1 };
+    },
+
+    getEventsByCurrentMonth() {
+      return monthNames[this.currentMonth.call()];
+    },
+
+    getNextMonth() {
+      this.counter++;
+
+      this.month();
+    },
+
+    getPreviousMonth() {
+      this.counter--;
+
+      this.month();
+    },
+
+    isToday(innerCounter) {
+      let today = new Date();
+      let isCurrentMonth = today.getMonth() + 1 === this.month().monthNumber;
+
+      if (today.getDate() === innerCounter && isCurrentMonth) {
+        return true;
+      }
+      return false;
     }
   }
-
+};
 </script>
 
 <!-- CSS libraries -->
@@ -171,9 +219,9 @@
 <!-- Scoped component css -->
 <!-- It only affect current component -->
 <style scoped>
-  #app {
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-  }
+#app {
+  text-align: center;
+  width: 80%;
+  margin-left: 10%;
+}
 </style>

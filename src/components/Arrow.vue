@@ -7,15 +7,8 @@
 
 
 <script>
-
 export default {
   name: "arrow",
-
-  data() {
-    return {
-
-    }
-  },
 
   props: {
     cssClass: {
@@ -27,10 +20,8 @@ export default {
       Function,
       required: true
     }
-    
-  },
-}
-
+  }
+};
 </script>
 
 <style scoped>

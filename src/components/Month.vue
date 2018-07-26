@@ -47,44 +47,38 @@
 </template>
 
 <script>
+export default {
+  name: "month",
 
-  export default {
-    name: 'month',
+  data() {
+    return {};
+  },
 
-    data() {
-      return {
-      }
+  props: {
+    month: {
+      Array,
+      required: true
     },
 
-    props: {
-
-      month: {
-        Array,
-        required: true
-      },
-
-      eventsThisMonth: {
-        Array,
-        required: true
-      },
-
-      firstDay: {
-        Date,
-        required: true
-      }
+    eventsThisMonth: {
+      Array,
+      required: true
     },
 
-    computed: {
-    },
-
-    methods: {
-      getMonth(arg) {
-        console.log(arg)
-      }
+    firstDay: {
+      Date,
+      required: true
     }
-    
-  }
+  },
 
+  computed: {},
+
+  methods: {
+    getMonth(arg) {
+      console.log(arg);
+    }
+  }
+};
 </script>
 
 <!-- CSS libraries -->
@@ -93,39 +87,39 @@
 <!-- Scoped component css -->
 <!-- It only affect current component -->
 <style scoped>
-  #month {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-  }
+#month {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
 
-  .table {
-    justify-content: space-between;
-    width: 100%;
-  }
+.table {
+  justify-content: space-between;
+  width: 100%;
+}
 
-  .textAlignRight {
-    text-align: right;
-  }
+.textAlignRight {
+  text-align: right;
+}
 
-  .textAlignCentered {
-    text-align: center;
-  }
+.textAlignCentered {
+  text-align: center;
+}
 
-  .activeDay {
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-end;
-    background-color: lightgray;
-    color: white;
-    min-width: 1em;
-    border-radius: 0%;
-    width: -webkit-fill-available;
-  }
+.activeDay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: lightgray;
+  color: white;
+  min-width: 1em;
+  border-radius: 0%;
+  width: -webkit-fill-available;
+}
 
-  activeDay:before {
-  content:'';
+activeDay:before {
+  content: "";
   float: left;
   width: auto;
   padding-bottom: 100%;
