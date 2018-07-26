@@ -2,14 +2,25 @@
   <div id="app">
     
     <div class="ui huge header">
-      <span> <i class="angle double left icon" @click="getPreviousMonth()"> </i></span>
+      <span> 
+        <arrow :cssClass="leftArrow" 
+          :method="getPreviousMonth"
+          @previousMonth="getPreviousMonth"
+        /> 
+      </span>
         {{ this.month().monthName }}
-      <span> <i class="angle double right icon" @click="getNextMonth()"></i></span>
+      <span> 
+        <arrow :cssClass="rightArrow" 
+          :method="getNextMonth"
+          @nextMonth="getNextMonth"
+        /> 
+      </span>
     </div>
 
     <month 
       :eventsThisMonth="eventsInMonth" 
-      :month="this.buildMonth" :firstDay="this.firstDayInMonth.name"
+      :month="this.buildMonth" 
+      :firstDay="this.firstDayInMonth.name"
     />
 
   </div>
@@ -18,6 +29,8 @@
 <script>
   import { apiGet } from "../apiBase/apiRequest";
   import Month from "./Month.vue";
+  import Arrow from "./Arrow.vue";
+
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
@@ -25,7 +38,8 @@
     name: 'app',
 
     components: {
-      "month": Month
+      "month": Month,
+      "arrow": Arrow
     },
 
     data() {
@@ -35,7 +49,9 @@
           let date = new Date()
           return date.getMonth()
         },
-        counter: 0
+        counter: 0,
+        leftArrow: "angle double left icon",
+        rightArrow: "angle double right icon"
       }
     },
 
@@ -66,11 +82,12 @@
       buildMonth() {
         let month = new Array();
         let innerCounter = 1
+        let nextMonthCounter = 1
         let dayCounter = 1
         let monthStarted = false
         let monthStart = this.firstDayInMonth.number
 
-        for(let i = 0; i < 7; i++) {
+        for(let i = 0; i < 6; i++) {
           let week = []
           for(let j=0; j < 7; j++) {
             
@@ -83,6 +100,8 @@
 
             if(innerCounter <= this.daysArray.length) {
               week.push( { dayName: dayNames[j], activeDay: this.isToday(innerCounter), dayNumber: innerCounter++ } )
+            } else {
+              week.push({ dayNumber: nextMonthCounter++ })
             }
           }
           month[i] = week;
@@ -113,7 +132,7 @@
           pointer = 11
         }
 
-        return { monthName: monthNames[pointer] }
+        return { monthName: monthNames[pointer], monthNumber: pointer+1 }
       },
 
       getEventsByCurrentMonth() {
@@ -134,8 +153,9 @@
 
       isToday(innerCounter) {
         let today = new Date()
+        let isCurrentMonth = today.getMonth()+1 === this.month().monthNumber
 
-        if (today.getDay()+1 === innerCounter) {
+        if (today.getDay()+1 === innerCounter && isCurrentMonth) {
           return true
         }
         return false

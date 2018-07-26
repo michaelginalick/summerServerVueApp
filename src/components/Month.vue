@@ -27,12 +27,12 @@
         </tr>
       </thead>
       <tbody>
-        <template v-for="weeks in month">
+        <template v-for="weeks in month" >
           <tr class="textAlignRight" v-bind:key="weeks.id">
             <template v-for="day in weeks">
               <td v-if="day.dayNumber === 0" v-bind:key="day.id">
               </td>
-              <td v-else-if="day.dayNumber > 0" 
+              <td v-else-if="day.dayNumber > 0 && day.dayNumber != 100" 
                 v-bind:class="{ activeDay: day.activeDay }"
                 v-bind:key="day.id"
               >
@@ -78,7 +78,9 @@
     },
 
     methods: {
-
+      getMonth(arg) {
+        console.log(arg)
+      }
     }
     
   }
@@ -99,7 +101,7 @@
   }
 
   .table {
-    justify-content: space-between; 
+    justify-content: space-between;
     width: 100%;
   }
 
@@ -114,12 +116,12 @@
   .activeDay {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    background-color: rgb(243, 7, 7);
+    justify-content: flex-end;
+    background-color: lightgray;
     color: white;
     min-width: 1em;
     border-radius: 0%;
-    vertical-align: middle;
+    width: -webkit-fill-available;
   }
 
   activeDay:before {
