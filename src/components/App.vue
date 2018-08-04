@@ -123,14 +123,7 @@ export default {
   },
 
   created() {
-    // try {
-    //   const data =  apiGet(`events_by_month/${this.getEventsByCurrentMonth()}`)
-    //   data.then((res) => {
-    //     this.eventsInMonth = res
-    //   })
-    // } catch(err) {
-    //   console.log(err)
-    // }
+    this.fetchEventsByMonth(monthNames[this.currentMonth.call()])
   },
 
   methods: {
@@ -156,7 +149,7 @@ export default {
         pointer = 11;
       }
 
-      return { monthName: monthNames[pointer], monthNumber: pointer + 1 };
+      return { monthName: monthNames[pointer], monthNumber: (++pointer) };
     },
 
     getEventsByCurrentMonth() {
@@ -165,14 +158,16 @@ export default {
 
     getNextMonth() {
       this.counter++;
-
-      this.month();
+      
+      let newMonth = this.month();
+      this.fetchEventsByMonth(newMonth.monthName);
     },
 
     getPreviousMonth() {
       this.counter--;
 
-      this.month();
+      let newMonth = this.month();
+      this.fetchEventsByMonth(newMonth.monthName);
     },
 
     isToday(innerCounter) {
@@ -183,6 +178,18 @@ export default {
         return true;
       }
       return false;
+    },
+
+    fetchEventsByMonth(currentMonth) {
+      try {
+        const data =  apiGet(`events_by_month/${currentMonth}`)
+        data.then((res) => {
+          this.eventsInMonth = res
+          console.log(this.eventsInMonth)
+        })
+      } catch(err) {
+        console.log(err)
+      }
     }
   }
 };
