@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    
     <div class="ui huge header">
-      <span> 
+      <span>
         <arrow 
           :cssClass="leftArrow" 
           :method="getPreviousMonth"
@@ -20,13 +19,11 @@
         /> 
       </span>
     </div>
-
-    <month 
-      :eventsThisMonth="eventsInMonth" 
-      :month="this.buildMonth" 
-      :firstDay="this.firstDayInMonth.name"
-    />
-
+      <month 
+        :eventsThisMonth="eventsInMonth" 
+        :month="this.buildMonth" 
+        :firstDay="this.firstDayInMonth.name"
+      />
   </div>
 </template>
 
@@ -81,7 +78,8 @@ export default {
       currentYear: () => {
         let date = new Date();
         return date.getFullYear();
-      }
+      },
+      loading: false
     };
   },
 
@@ -149,7 +147,7 @@ export default {
 
   created() {
     // try {
-    //   const data =  apiGet(`eventsByMonth/${this.getEventsByCurrentMonth()}`)
+    //   const data =  apiGet(`events_by_month/${this.getEventsByCurrentMonth()}`)
     //   data.then((res) => {
     //     this.eventsInMonth = res
     //   })
@@ -223,5 +221,13 @@ export default {
   text-align: center;
   width: 80%;
   margin-left: 10%;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.55s ease-out;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

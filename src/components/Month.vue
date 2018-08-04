@@ -2,22 +2,9 @@
   <div id="month">
     <table class="ui celled table">
       <tableHead />
-      <tbody>
-        <template v-for="weeks in month" >
-          <tr class="textAlignRight" v-bind:key="weeks.id">
-            <template v-for="day in weeks">
-              <td v-if="day.dayNumber === 0" v-bind:key="day.id">
-              </td>
-              <td v-else-if="day.dayNumber > 0 && day.dayNumber != 100" 
-                v-bind:class="[{ activeDay: day.activeDay, nextMonth: day.nextMonth }]"
-                v-bind:key="day.id"
-              >
-                {{day.dayNumber}}
-              </td>
-            </template>
-          </tr>
-        </template>
-      </tbody>
+      <tableBody 
+        :month="month"
+      />
     </table>
   </div>
 </template>
@@ -25,12 +12,14 @@
 <script>
 
 import TableHead from "./TableHead.vue";
+import TableBody from "./TableBody.vue";
 
 export default {
   name: "month",
 
    components: {
     tableHead: TableHead,
+    tableBody: TableBody
   },
 
   data() {
@@ -53,14 +42,6 @@ export default {
       required: true
     }
   },
-
-  computed: {},
-
-  methods: {
-    getMonth(arg) {
-      console.log(arg);
-    }
-  }
 };
 </script>
 
@@ -82,30 +63,5 @@ export default {
   width: 100%;
 }
 
-.textAlignRight {
-  text-align: right;
-}
 
-.nextMonth {
-  color:firebrick;
-}
-
-
-.activeDay {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-end;
-  background-color: lightgray;
-  color: white;
-  min-width: 1em;
-  border-radius: 0%;
-  width: -webkit-fill-available;
-}
-
-activeDay:before {
-  content: "";
-  float: left;
-  width: auto;
-  padding-bottom: 100%;
-}
 </style>
