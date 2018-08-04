@@ -1,7 +1,7 @@
 <template>
   <tbody>
     <template v-for="week in month">
-      <tableRow :week="week" v-bind:key="week.id"/>
+      <tableRow :week="week" v-bind:key="week.id" />
     </template>
   </tbody>
 </template>
@@ -20,6 +20,11 @@ export default {
 
   props: {
     month: {
+      Array,
+      required: true
+    },
+
+    eventsThisMonth: {
       Array,
       required: true
     }

@@ -4,6 +4,7 @@
       <tableHead />
       <tableBody 
         :month="month"
+        :eventsThisMonth="eventsThisMonth"
       />
     </table>
   </div>
