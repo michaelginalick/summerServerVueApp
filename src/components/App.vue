@@ -31,30 +31,7 @@
 import { apiGet } from "../apiBase/apiRequest";
 import Month from "./Month.vue";
 import Arrow from "./Arrow.vue";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-];
-const dayNames = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
-];
+import { monthNames, dayNames } from "../constants/calendar";
 
 export default {
   name: "app",
