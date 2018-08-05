@@ -4,6 +4,7 @@
       <tableHead />
       <tableBody 
         :month="month"
+        :eventsInMonth="eventsInMonth"
       />
     </table>
   </div>
@@ -32,7 +33,7 @@ export default {
       required: true
     },
 
-    eventsThisMonth: {
+    eventsInMonth: {
       Array,
       required: true
     },

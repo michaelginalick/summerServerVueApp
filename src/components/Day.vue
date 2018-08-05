@@ -6,21 +6,49 @@
     v-bind:key="day.id"
   >
     {{day.dayNumber}}
+    <eventsInDay 
+      :day="this.mapEventToDay(day)"
+    />
   </td>
 </template>
 
 
 <script>
 
+import EventsInDay from "./EventsInDay.vue";
+
 export default {
   name: "day",
+
+  components: {
+    eventsInDay: EventsInDay
+  },
 
   props: {
     day: {
       Object,
       required: true
+    },
+
+    eventsInMonth: {
+      Array,
+      required: true
     }
+  },
+
+  methods: {
+
+    mapEventToDay(day) {
+      let dayEvents = this.eventsInMonth[day.dayNumber]
+      
+      if (dayEvents && dayEvents.length > 0 && !day.nextMonth) {
+        day["events"] = dayEvents
+        console.log(day)
+        return day
+      }
+    } 
   }
+
 };
 </script>
 
