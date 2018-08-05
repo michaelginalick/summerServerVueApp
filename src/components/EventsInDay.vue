@@ -1,13 +1,17 @@
 <template>
   <div>
-    {{ this.mapEventName }}
+    <ul v-for="event in this.mapEventName" v-bind:key="event.id" >
+      <li>
+        <a href="#">{{ event.Name }} </a>
+      </li>
+    </ul>
   </div>
 </template>
 
 
 
 <script>
-
+import { removeDuplicates } from "../modules/removeDuplicates"
 
 export default {
   name: "eventsInDay",
@@ -22,12 +26,13 @@ export default {
   computed: {
     mapEventName() {
       if (this.day && this.day.events) {
-        return this.day.events.map(e => e.Name)
+        let getUniqueEvents = this.day.events.removeDuplicates(this.day.events, "Name")
+        return getUniqueEvents.map(e => e)
       } else {
         {}
       }
     }
-  }
+  },
 
 };
 </script>

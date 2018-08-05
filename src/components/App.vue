@@ -153,10 +153,6 @@ export default {
       return { monthName: monthNames[pointer], monthNumber: (++pointer) };
     },
 
-    getEventsByCurrentMonth() {
-      return monthNames[this.currentMonth.call()];
-    },
-
     getNextMonth() {
       this.counter++;
       
