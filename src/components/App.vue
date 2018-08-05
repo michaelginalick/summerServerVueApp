@@ -182,6 +182,7 @@ export default {
     },
 
     fetchEventsByMonth(currentMonth) {
+      this.resetEventsInMonth()
       try {
         const data =  apiGet(`events_by_month/${currentMonth}`)
         data.then((res) => {
@@ -192,6 +193,10 @@ export default {
       } catch(err) {
         console.log(err)
       }
+    },
+
+    resetEventsInMonth() {
+      return this.eventsInMonth = []
     }
   }
 };
