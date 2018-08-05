@@ -186,7 +186,8 @@ export default {
         const data =  apiGet(`events_by_month/${currentMonth}`)
         data.then((res) => {
           this.eventsInMonth = res
-          console.log(this.eventsInMonth.groupBy('Day'))
+          this.eventsInMonth = this.eventsInMonth.groupBy('Day')
+          console.log(this.eventsInMonth)
         })
       } catch(err) {
         console.log(err)

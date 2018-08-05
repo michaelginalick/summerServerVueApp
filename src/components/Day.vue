@@ -7,8 +7,7 @@
   >
     {{day.dayNumber}}
     <eventsInDay 
-      :day="day"
-      :eventsInMonth="eventsInMonth"
+      :day="this.mapEventToDay(day)"
     />
   </td>
 </template>
@@ -36,6 +35,19 @@ export default {
       required: true
     }
   },
+
+  methods: {
+
+    mapEventToDay(day) {
+      let dayEvents = this.eventsInMonth[day.dayNumber]
+      
+      if (dayEvents && dayEvents.length > 0 && !day.nextMonth) {
+        day["events"] = dayEvents
+        console.log(day)
+        return day
+      }
+    } 
+  }
 
 };
 </script>

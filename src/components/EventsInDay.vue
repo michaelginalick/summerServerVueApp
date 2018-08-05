@@ -1,6 +1,6 @@
 <template>
   <div>
-    I am here
+    {{ this.mapEventName }}
   </div>
 </template>
 
@@ -13,11 +13,21 @@ export default {
   name: "eventsInDay",
 
   props: {
-    eventsInMonth: {
-      Array,
+    day: {
+      Object,
       required: true
     }
   },
+
+  computed: {
+    mapEventName() {
+      if (this.day && this.day.events) {
+        return this.day.events.map(e => e.Name)
+      } else {
+        {}
+      }
+    }
+  }
 
 };
 </script>
