@@ -20,7 +20,7 @@
       </span>
     </div>
       <month 
-        :eventsThisMonth="eventsInMonth" 
+        :eventsInMonth="eventsInMonth" 
         :month="this.buildMonth" 
         :firstDay="this.firstDayInMonth.name"
       />
@@ -32,6 +32,7 @@ import { apiGet } from "../apiBase/apiRequest";
 import Month from "./Month.vue";
 import Arrow from "./Arrow.vue";
 import { monthNames, dayNames } from "../constants/calendar";
+import { groupBy } from "../modules/groupBy"
 
 export default {
   name: "app",
@@ -185,7 +186,7 @@ export default {
         const data =  apiGet(`events_by_month/${currentMonth}`)
         data.then((res) => {
           this.eventsInMonth = res
-          console.log(this.eventsInMonth)
+          console.log(this.eventsInMonth.groupBy('Day'))
         })
       } catch(err) {
         console.log(err)

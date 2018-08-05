@@ -6,21 +6,37 @@
     v-bind:key="day.id"
   >
     {{day.dayNumber}}
+    <eventsInDay 
+      :day="day"
+      :eventsInMonth="eventsInMonth"
+    />
   </td>
 </template>
 
 
 <script>
 
+import EventsInDay from "./EventsInDay.vue";
+
 export default {
   name: "day",
+
+  components: {
+    eventsInDay: EventsInDay
+  },
 
   props: {
     day: {
       Object,
       required: true
+    },
+
+    eventsInMonth: {
+      Array,
+      required: true
     }
-  }
+  },
+
 };
 </script>
 
