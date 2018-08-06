@@ -6,9 +6,11 @@
     v-bind:key="day.id"
   >
     {{day.dayNumber}}
+  <div>
     <eventsInDay 
       :day="this.mapEventToDay(day)"
     />
+  </div>
   </td>
 </template>
 
@@ -43,7 +45,6 @@ export default {
       
       if (dayEvents && dayEvents.length > 0 && !day.nextMonth) {
         day["events"] = dayEvents
-        console.log(day)
         return day
       }
     } 
