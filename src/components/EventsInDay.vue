@@ -1,17 +1,17 @@
 <template>
   <div>
+    <eventModal 
+      :showModal="showModal"
+      :event="selectedEvent"
+      @toogleModal="deselect()"
+    />
     <ul v-for="event in this.mapEvents" v-bind:key="event.Name" >
       <li>
         <a href="#"
-          @click="toogleModal()"
+          @click="selectEvent(event)"
         >{{ event.Name }} 
         </a>
-        <eventModal 
-          :showModal="showModal"
-          :event="event"
-          @toogleModal="toogleModal()"
-        />
-      </li>
+      </li> 
     </ul>
   </div>
 </template>
@@ -28,7 +28,8 @@ export default {
 
   data() {
     return {
-      showModal: false
+      showModal: false,
+      selectedEvent: {Name: undefined, Link: undefined, Location: undefined}
     }
   },
 
@@ -55,8 +56,14 @@ export default {
   },
 
   methods: {
-    toogleModal() {
+    selectEvent(e) {
+      this.selectedEvent = e
       this.showModal = !this.showModal
+    },
+
+    deselect() {
+      this.showModal = !this.showModal
+      this.selectedEvent = { Name: undefined, Link: undefined, Location: undefined }
     }
   }
 
