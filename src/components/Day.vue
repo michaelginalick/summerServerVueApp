@@ -6,11 +6,11 @@
     v-bind:key="day.id"
   >
     {{day.dayNumber}}
-    <div>
-      <eventsInDay 
-        :day="this.mapEventToDay(day)"
-      />
-    </div>
+  <div>
+    <eventsInDay 
+      :day="this.mapEventToDay(day)"
+    />
+  </div>
   </td>
 </template>
 
