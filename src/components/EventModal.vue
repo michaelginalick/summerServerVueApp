@@ -3,25 +3,20 @@
     <div class="modal" v-show="this.showModal">
       <div class="modal-content">
         <span class="close" @click="toogle()">&times;</span>
-        <div class="align-right">
+        <div class="align-center">
           <h2>Event Details</h2>
         </div>
         <div class="event-details">
           <ul>
-            <p> Name: {{event.Name}} </p>
-            
-            <div v-if="event.Link">
-              <p> Link: <a :href="`${event.Link}`"> {{ event.Link }}</a></p>
-            </div>
-            <div v-else>
-              <p> Link: No link was provided</p>
-            </div>
-            <div v-if="event.Location">
-              <p> Location: {{ event.Location }} </p>
-            </div>
-            <div v-else>
-              <p> Location: No location was provided</p>
-            </div>
+            <eventName 
+              :event="event"
+            />
+            <eventLink 
+              :event="event"
+            />
+            <eventLocation 
+              :event="event"
+            />
           </ul>
         </div>
       </div>
@@ -30,9 +25,18 @@
 </template>
 
 <script>
+import EventName from "./EventName.vue";
+import EventLink from "./EventLink.vue";
+import EventLocation from "./EventLocation.vue";
 
 export default {
   name: "eventModal",
+
+  components: {
+    eventName: EventName,
+    eventLink: EventLink,
+    eventLocation: EventLocation
+  },
 
   props: {
     showModal: {
@@ -79,6 +83,7 @@ export default {
   border: 1px solid #888;
   width: 50%;
   height: 50%;
+  margin-top: 15%;
 }
 
 /* The Close Button */
@@ -89,10 +94,12 @@ export default {
   font-weight: bold;
 }
 
-.align-right {
+.align-center {
   display: flex;
   align-items: center;
   color: black;
+  justify-content: center;
+
 }
 
 .event-details {

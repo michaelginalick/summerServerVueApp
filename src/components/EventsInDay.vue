@@ -26,10 +26,15 @@ export default {
   name: "eventsInDay",
 
 
+
   data() {
     return {
       showModal: false,
-      selectedEvent: {Name: undefined, Link: undefined, Location: undefined}
+      selectedEvent: { 
+        Name: undefined, 
+        Link: undefined, 
+        Location: undefined 
+      }
     }
   },
 
@@ -63,6 +68,10 @@ export default {
 
     deselect() {
       this.showModal = !this.showModal
+      this.resetEvent()
+    },
+
+    resetEvent() {
       this.selectedEvent = { Name: undefined, Link: undefined, Location: undefined }
     }
   }
