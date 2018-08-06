@@ -57,6 +57,7 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: row;
+  margin-bottom: 20%;
 }
 
 .table {
