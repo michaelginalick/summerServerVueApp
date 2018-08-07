@@ -6,9 +6,10 @@
     v-bind:key="day.id"
   >
     {{day.dayNumber}}
-  <div>
+  <div class="day">
     <eventsInDay 
       :day="this.mapEventToDay(day)"
+      :nextMonth="this.day.nextMonth"
     />
   </div>
   </td>
@@ -66,15 +67,17 @@ export default {
   background-color: lightgray;
   color: white;
   min-width: 1em;
-  border-radius: 0%;
-  width: -webkit-fill-available;
+  border-radius: 0%;;
 }
 
-activeDay:before {
-  content: "";
-  float: left;
-  width: auto;
-  padding-bottom: 100%;
+.ui.celled.table tr td {
+  border: 1px solid rgba(34, 36, 38, 0.1);
 }
+
+.day {
+  display: flex;
+  justify-content: end;
+}
+
 </style>
 

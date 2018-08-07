@@ -1,4 +1,4 @@
-<template >
+<template>
   <tr class="textAlignRight">
     <template v-for="day in week">
       <day :day="day" v-bind:key="day.id" 
@@ -40,6 +40,7 @@ export default {
 
 .textAlignRight {
   text-align: right;
+  border-right: 1px solid rgba(34, 36, 38, 0.1);
 }
 
 </style>
