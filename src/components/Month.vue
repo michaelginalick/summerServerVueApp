@@ -1,5 +1,5 @@
 <template>
-  <div id="month">
+  <div class="month">
     <table class="ui celled table">
       <tableHead />
       <tableBody 
@@ -52,7 +52,7 @@ export default {
 <!-- Scoped component css -->
 <!-- It only affect current component -->
 <style scoped>
-#month {
+.month {
   text-align: center;
   display: flex;
   justify-content: center;
