@@ -61,13 +61,7 @@ export default {
 }
 
 .activeDay {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-end;
   background-color: lightgray;
-  color: white;
-  min-width: 1em;
-  border-radius: 0%;;
 }
 
 .ui.celled.table tr td {
