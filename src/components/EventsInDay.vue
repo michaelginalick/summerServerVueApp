@@ -116,12 +116,16 @@ ul {
     display: table;
     table-layout: fixed; /* optional, for equal spacing */
     border-collapse: collapse;
+    word-break: break-word;
 }
 li {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
     word-wrap: break-word;
+    margin: 0;
+    font-size: 1.5em;
+    
 }
 
 </style>
