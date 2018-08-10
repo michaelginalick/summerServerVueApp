@@ -6,16 +6,25 @@
         <div class="align-center">
           <h2>Event Details</h2>
         </div>
-        <div class="event-details">
-          <eventName 
-            :event="event"
-          />
-          <eventLink 
-            :event="event"
-          />
-          <eventLocation 
-            :event="event"
-          />
+          <ul>
+            <li>
+              <eventName 
+                :event="event"
+              />
+            </li>
+            <li>
+              <eventLink 
+                :event="event"
+              />
+            </li>
+            <li>
+              <eventLocation 
+                :event="event"
+              />
+            </li>
+          </ul>
+          <div class="clearer"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -87,6 +96,10 @@ export default {
   text-overflow: ellipsis;
 }
 
+.modal-content p a {
+  word-break: break-all;
+}
+
 
 /* The Close Button */
 .close {
@@ -101,12 +114,59 @@ export default {
   align-items: center;
   color: black;
   justify-content: center;
-
 }
 
-.event-details {
-  padding-top: 1em;
-  width: 10%;
+.clearer {
+ height:0;
+ clear:both;
+}
+
+ul {
+   display: flex;
+   flex-direction: column;
+   background-color: solid whitesmoke; 
+}
+  
+li {
+  list-style: none;
+  margin:10px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+@media screen and (max-width: 600px) {
+    ul {
+      float: none;
+      margin: 0px;
+      white-space: normal;
+      overflow-y:auto;
+    }
+
+    li {
+      float: none;
+      margin-top: 25px;
+      width: 100%;
+    }
+    
+    .modal-content {
+      margin: 0;
+      border: 1px solid #888;
+      width: 100%;
+      height: 50%;
+      margin-top: 30%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      overflow-y:auto;
+    }
+
+    .clearer {
+      height:0;
+      clear:both;
+    }
+
 }
 
 .fade-enter-active, .fade-leave-active {

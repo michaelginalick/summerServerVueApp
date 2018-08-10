@@ -74,13 +74,13 @@ export default {
 
   methods: {
     selectEvent(e) {
+      this.resetEvent()
       this.selectedEvent = e
       this.showModal = !this.showModal
     },
 
     deselect() {
       this.showModal = !this.showModal
-      this.resetEvent()
     },
 
     resetEvent() {
