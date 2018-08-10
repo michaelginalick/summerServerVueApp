@@ -70,7 +70,8 @@ export default {
 
 .day {
   display: flex;
-  justify-content: end;
+  align-self: auto;
+  font-size: 1.5em;
 }
 
 </style>

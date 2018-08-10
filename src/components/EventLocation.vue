@@ -1,9 +1,9 @@
 <template>
   <div v-if="this.event.Location">
-    <li> Location: {{ event.Location }} </li>
+    <p> {{ event.Location }} </p>
   </div>
   <div v-else>
-    <li> Location: No location was provided</li>
+    <p>  No location was provided</p>
   </div>
 </template>
 

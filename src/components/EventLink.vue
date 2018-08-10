@@ -1,9 +1,9 @@
 <template>
   <div v-if="event.Link">
-    <li> Link: &nbsp; <a :href="`${event.Link}`"> {{ event.Link }}</a></li>
+    <p> <a :href="`${event.Link}`"> {{ event.Link }}</a></p>
   </div>
   <div v-else>
-    <li> Link: No link was provided</li>
+    <p> No link was provided</p>
   </div>
 </template>
 
@@ -21,14 +21,6 @@ export default {
 </script>
 
 <style>
-li {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    word-wrap: break-word;
-    margin: 0;
-    font-size: 1.5em;
-}
 </style>
 
 
