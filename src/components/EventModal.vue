@@ -7,17 +7,15 @@
           <h2>Event Details</h2>
         </div>
         <div class="event-details">
-          <ul>
-            <eventName 
-              :event="event"
-            />
-            <eventLink 
-              :event="event"
-            />
-            <eventLocation 
-              :event="event"
-            />
-          </ul>
+          <eventName 
+            :event="event"
+          />
+          <eventLink 
+            :event="event"
+          />
+          <eventLocation 
+            :event="event"
+          />
         </div>
       </div>
     </div>
@@ -75,7 +73,7 @@ export default {
   display: block;
 }
 
-/* Modal Content */
+/* /* Modal Content */
 .modal-content {
   background-color: #fefefe;
   margin: auto;
@@ -84,7 +82,11 @@ export default {
   width: 50%;
   height: 50%;
   margin-top: 15%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 /* The Close Button */
 .close {
@@ -103,16 +105,8 @@ export default {
 }
 
 .event-details {
-  height: 10em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
-}
-.event-details p {
-  margin: 0;
-  font-size: 1.5em;
-  display: flex;
+  padding-top: 1em;
+  width: 10%;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -121,6 +115,7 @@ export default {
 .fade-enter, .fade-leave-to  {
   opacity: 0;
 }
+
 
 
 </style>

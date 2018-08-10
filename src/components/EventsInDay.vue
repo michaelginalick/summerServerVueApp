@@ -1,29 +1,23 @@
 <template>
-  <div class="events">
+  <div class="eventWrapper">
     <eventModal 
       :showModal="showModal"
       :event="selectedEvent"
       @toogleModal="deselect()"
     />
-    <ul>
-      <li>
+      <div class="eventInDay">
         <noEventsInDay 
           :day="this.day"
           :nextMonth="this.nextMonth"
         />
-      </li>
-    </ul>
-    <ul v-for="event in this.mapEvents" 
-        v-bind:key="event.Name" 
-        v-bind="{class: event}"
-    >
-      <li>
-        <a href="#"
-          @click="selectEvent(event)"
-        >{{ event.Name }} 
-        </a>
-      </li> 
-    </ul>
+        <div class="events">
+          <div class="event" v-for="event in this.mapEvents" 
+              v-bind:key="event.Name"
+          >
+            <a href="#" @click="selectEvent(event)">{{ event.Name }} </a>
+          </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -99,7 +93,7 @@ export default {
 
 
 <style scoped>
-.events {
+.eventWrapper {
   height: 100px;
   overflow-y:auto;
   margin-left: 5%;
@@ -107,25 +101,26 @@ export default {
 }
 
 .event {
-  display: flex;
-  justify-content: center;
-  width: 75%;
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+  margin-right: 10px;
+  text-align: center;
 }
-ul {
-    width: 100%;
-    display: table;
-    table-layout: fixed; /* optional, for equal spacing */
-    border-collapse: collapse;
-    word-break: break-word;
+.eventInDay {
+  width: 100%;
+  display: table;
+  table-layout: fixed; /* optional, for equal spacing */
+  border-collapse: collapse;
+  word-break: break-word;
 }
-li {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    word-wrap: break-word;
-    margin: 0;
-    font-size: 1.5em;
-    
+
+.eventListing {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  word-wrap: break-word;
+  margin: 0;
+  font-size: 1.5em;
 }
 
 </style>

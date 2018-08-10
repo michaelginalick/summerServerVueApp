@@ -1,5 +1,7 @@
 <template>
-  <li> Name: {{event.Name}} </li>
+  <div>
+    <p> Name: {{event.Name}} </p>
+  </div>
 </template>
 
 <script>
