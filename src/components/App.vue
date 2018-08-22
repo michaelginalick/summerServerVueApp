@@ -179,12 +179,13 @@ export default {
 
     fetchEventsByMonth(currentMonth) {
       this.resetEventsInMonth()
+      let year = this.year()
       try {
-        const data =  apiGet(`events_by_month/${currentMonth}`)
+        const data =  apiGet(`events_by_month/${currentMonth}/${year}`)
         data.then((res) => {
           this.eventsInMonth = res
+          console.log(res)
           this.eventsInMonth = this.eventsInMonth.groupBy('Day')
-          console.log(this.eventsInMonth)
         })
       } catch(err) {
         console.log(err)
