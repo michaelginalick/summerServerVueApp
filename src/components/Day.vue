@@ -61,7 +61,7 @@ export default {
 }
 
 .activeDay {
-  background-color: lightgray;
+  background-color: lightgray !important;
 }
 
 .ui.celled.table tr td {

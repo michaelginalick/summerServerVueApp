@@ -24,8 +24,6 @@
             </li>
           </ul>
           <div class="clearer"></div>
-          </div>
-        </div>
       </div>
     </div>
   </transition>
@@ -166,7 +164,6 @@ li {
       height:0;
       clear:both;
     }
-
 }
 
 .fade-enter-active, .fade-leave-active {

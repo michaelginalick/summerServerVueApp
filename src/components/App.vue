@@ -10,7 +10,7 @@
       </span>
         {{ this.month().monthName }}
         -
-        {{ this.year() }}
+        {{ this.fetchYear() }}
       <span> 
         <arrow 
           :cssClass="rightArrow" 
@@ -32,7 +32,7 @@ import { apiGet } from "../apiBase/apiRequest";
 import Month from "./Month.vue";
 import Arrow from "./Arrow.vue";
 import { monthNames, dayNames } from "../constants/calendar";
-import { groupBy } from "../modules/groupBy"
+import { groupBy } from "../modules/groupBy";
 
 export default {
   name: "app",
@@ -48,16 +48,17 @@ export default {
       counter: 0,
       leftArrow: "angle double left icon",
       rightArrow: "angle double right icon",
+      year: 0,
 
       currentMonth: () => {
         let date = new Date();
         return date.getMonth();
       },
-      currentYear: () => {
+      initialYear: () => {
         let date = new Date();
+
         return date.getFullYear();
-      },
-      loading: false
+      }
     };
   },
 
@@ -124,7 +125,8 @@ export default {
   },
 
   created() {
-    this.fetchEventsByMonth(monthNames[this.currentMonth.call()])
+    this.fetchEventsByMonth(monthNames[this.currentMonth.call()]);
+    this.fetchYear();
   },
 
   methods: {
@@ -132,15 +134,11 @@ export default {
       return this.currentMonth.call() + this.counter;
     },
 
-    year() {
-      let pointer = this.currentPointer();
-
-      if (pointer % 12 === 0) {
-        let incrementYear = this.currentYear.call();
-        return (incrementYear += 1);
+    fetchYear() {
+      if (this.year === 0) {
+        this.year = this.initialYear.call();
       }
-
-      return this.currentYear.call();
+      return this.year;
     },
 
     month() {
@@ -150,20 +148,24 @@ export default {
         pointer = 11;
       }
 
-      return { monthName: monthNames[pointer], monthNumber: (++pointer) };
+      return { monthName: monthNames[pointer], monthNumber: ++pointer };
     },
 
     getNextMonth() {
+      let currentMonth = this.month();
       this.counter++;
-      
       let newMonth = this.month();
+
+      this.willChangeYear(currentMonth, newMonth);
       this.fetchEventsByMonth(newMonth.monthName);
     },
 
     getPreviousMonth() {
+      let currentMonth = this.month();
       this.counter--;
-
       let newMonth = this.month();
+
+      this.willChangeYear(currentMonth, newMonth);
       this.fetchEventsByMonth(newMonth.monthName);
     },
 
@@ -177,23 +179,36 @@ export default {
       return false;
     },
 
+    willChangeYear(currentMonth, newMonth) {
+      if (currentMonth.monthNumber === 12 && newMonth.monthNumber === 1) {
+        this.year += 1;
+        return true;
+      } else if (
+        currentMonth.monthNumber === 1 &&
+        newMonth.monthNumber === 12
+      ) {
+        this.year -= 1;
+        return true;
+      }
+      return false;
+    },
+
     fetchEventsByMonth(currentMonth) {
-      this.resetEventsInMonth()
-      let year = this.year()
+      this.resetEventsInMonth();
+      let year = this.fetchYear();
       try {
-        const data =  apiGet(`events_by_month/${currentMonth}/${year}`)
-        data.then((res) => {
-          this.eventsInMonth = res
-          console.log(res)
-          this.eventsInMonth = this.eventsInMonth.groupBy('Day')
-        })
-      } catch(err) {
-        console.log(err)
+        const data = apiGet(`events_by_month/${currentMonth}/${year}`);
+        data.then(res => {
+          this.eventsInMonth = res;
+          this.eventsInMonth = this.eventsInMonth.groupBy("Day");
+        });
+      } catch (err) {
+        console.log(err);
       }
     },
 
     resetEventsInMonth() {
-      return this.eventsInMonth = []
+      return (this.eventsInMonth = []);
     }
   }
 };
@@ -211,11 +226,19 @@ export default {
   margin-left: 10%;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.55s ease-out;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .ui.huge.header {
+    font-size: 1.8em;
+  }
 }
 </style>
