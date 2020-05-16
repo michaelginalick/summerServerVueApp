@@ -45,11 +45,10 @@ export default {
   data() {
     return {
       eventsInMonth: [],
-      counter: 0,
       leftArrow: "angle double left icon",
       rightArrow: "angle double right icon",
       year: 0,
-
+      counter: new Date().getMonth(),
       currentMonth: () => {
         let date = new Date();
         return date.getMonth();
@@ -58,25 +57,21 @@ export default {
         let date = new Date();
 
         return date.getFullYear();
-      }
+      },
     };
   },
 
   computed: {
-    daysInCurrentMonth() {
-      var now = new Date();
-      let calculateMonth = this.currentMonth.call() + 1 + this.counter;
 
-      return new Date(now.getFullYear(), calculateMonth, 0).getDate();
+    daysInCurrentMonth() {
+      const currentYear = this.year
+      const currentMonth = this.month().monthNumber;
+
+      return new Date(currentYear, currentMonth, 0).getDate();
     },
 
     firstDayInMonth() {
-      let date = new Date();
-      let firstDay = new Date(
-        date.getFullYear(),
-        this.currentMonth.call() + this.counter,
-        1
-      );
+      const firstDay = new Date(this.year, this.month().monthNumber-1);
 
       return { name: dayNames[firstDay.getDay()], number: firstDay.getDay() };
     },
@@ -130,9 +125,6 @@ export default {
   },
 
   methods: {
-    currentPointer() {
-      return this.currentMonth.call() + this.counter;
-    },
 
     fetchYear() {
       if (this.year === 0) {
@@ -142,18 +134,16 @@ export default {
     },
 
     month() {
-      let pointer = this.currentPointer() % monthNames.length;
-
-      if (pointer < 0) {
-        pointer = 11;
-      }
-
-      return { monthName: monthNames[pointer], monthNumber: ++pointer };
+      return { monthName: monthNames[this.counter], monthNumber: this.counter+1 };
     },
 
     getNextMonth() {
       let currentMonth = this.month();
       this.counter++;
+
+      if(this.counter > 11) {
+        this.counter=0;
+      }
       let newMonth = this.month();
 
       this.willChangeYear(currentMonth, newMonth);
@@ -163,6 +153,10 @@ export default {
     getPreviousMonth() {
       let currentMonth = this.month();
       this.counter--;
+
+      if(this.counter < 0) {
+        this.counter = 11;
+      }
       let newMonth = this.month();
 
       this.willChangeYear(currentMonth, newMonth);
@@ -170,10 +164,11 @@ export default {
     },
 
     isToday(innerCounter) {
-      let today = new Date();
-      let isCurrentMonth = today.getMonth() + 1 === this.month().monthNumber;
+      const today = new Date();
 
-      if (today.getDate() === innerCounter && isCurrentMonth) {
+      const isCurrentMonth = today.getMonth() + 1 === this.month().monthNumber;
+      const isCurrentYear = today.getFullYear() === this.year;
+      if (today.getDate() === innerCounter && isCurrentMonth && isCurrentYear) {
         return true;
       }
       return false;
