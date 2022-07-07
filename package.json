@@ -16,7 +16,7 @@
     "email": "michaelginalick@Michaels-MacBook-Pro.local"
   },
   "dependencies": {
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "normalize.css": "^7.0.0",
     "object-assign": "^4.1.1",
     "promise-polyfill": "^6.0.2",
